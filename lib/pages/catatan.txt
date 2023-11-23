@@ -1,0 +1,163 @@
+ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: cartProvider.cart.items.length,
+                  itemBuilder: (context, index) {
+                    final cartItem = cartProvider.cart.items[index];
+                    final quantity = cartItem.quantity;
+                    return CheckoutTile(
+                        judul: cartItem.product.judul,
+                        harga: cartItem.product.harga,
+                        quantity: quantity.toString());
+                  },
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: orderProvider.orders.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      color: Colors.white,
+                      padding: const EdgeInsets.all(16),
+                      width: double.infinity,
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Total Harga : ',
+                                style: GoogleFonts.lato(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                              SelectableText(
+                                NumberFormat.currency(
+                                        locale: 'id_ID', symbol: 'Rp ')
+                                    .format(totalHarga),
+                                style: GoogleFonts.lato(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green,
+                                    fontSize: 18),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Text(
+                            'DATA PEMESAN :',
+                            style: GoogleFonts.lato(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          // TARUH DATA NAMA EMAIL DAN NO HANDPHONE
+                          for (var order in orderProvider.orders)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SelectableText(
+                                  'Nama : ${order.nama}',
+                                  style: GoogleFonts.lato(fontSize: 16),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                SelectableText('Email : ${order.email}',
+                                    style: GoogleFonts.lato(fontSize: 16)),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                SelectableText(
+                                    'No.Handphone : ${order.noHandphone}',
+                                    style: GoogleFonts.lato(fontSize: 16)),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text('ALAMAT : ',
+                                    style: GoogleFonts.lato(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                SelectableText(
+                                  'Asal Kota : ${order.kota}',
+                                  style: GoogleFonts.lato(fontSize: 16),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                SelectableText('Kecamatan : ${order.kecamatan}',
+                                    style: GoogleFonts.lato(fontSize: 16)),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                SelectableText('Alamat Lengkap :',
+                                    style: GoogleFonts.lato(fontSize: 16)),
+                                Container(
+                                  padding: const EdgeInsets.all(5),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black, // Warna border
+                                      width: 1.5, // Lebar border
+                                    ),
+                                  ),
+                                  child: SelectableText(
+                                    order.alamat,
+                                    maxLines: 5,
+                                    style: GoogleFonts.lato(fontSize: 16),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Text(
+                                  'TIPE PEMBAYARAN',
+                                  style: GoogleFonts.lato(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Transfer ${order.tipePembayaran}',
+                                  style: GoogleFonts.lato(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Catatan',
+                                  style: GoogleFonts.lato(fontSize: 16),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.all(5),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black, // Warna border
+                                      width: 1.5, // Lebar border
+                                    ),
+                                  ),
+                                  child: SelectableText(
+                                    order.catatan,
+                                    maxLines: 5,
+                                    style: GoogleFonts.lato(fontSize: 16),
+                                  ),
+                                ),
+                              ],
+                            )
+                        ],
+                      ),
+                    );
+                  },
+                )
